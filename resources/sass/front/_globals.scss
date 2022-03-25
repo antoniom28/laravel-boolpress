@@ -1,0 +1,42 @@
+.align-items-center{
+    display: flex;
+    align-items: center;
+}
+
+.justify-center{
+    display: flex;
+    justify-content: center;
+}
+
+.justify-between{
+    display: flex;
+    justify-content: space-between;
+}
+
+.justify-around{
+    display: flex;
+    justify-content: space-around;
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+svg{
+   width: 20px;
+}
+
+input{
+    border: unset;
+    background-color: unset;
+}
+
+input:focus-visible{
+    outline: unset;
+}
+
+li{
+    list-style: none;
+}
