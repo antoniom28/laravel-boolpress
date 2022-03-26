@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });*/
 
 Route::get("/posts" , "Api\PostController@index"); //prende tutti i dati relativi ai post
-Route::get("/posts/{slug}" , "Api\PostController@index"); //prende il post specifico
-Route::get("/users/{name}" , "Api\PostController@indexUsers"); //prende tutti gli utenti
+Route::get("/posts/p/{slug}" , "Api\PostController@index"); //prende il post specifico
+Route::get("/users/{name}" , "Api\PostController@indexUsersName"); //prende tutti gli utenti che iniziano con "name"
+Route::get("/user/{slug}" , "Api\PostController@indexUser"); //prende lo specifico utente
 Route::post("/new-comment" , "Api\PostController@newComment"); //salva i commenti

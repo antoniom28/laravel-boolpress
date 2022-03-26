@@ -10,9 +10,9 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index($id = null){
-        if($id){
-            $posts = Post::all()->where('id' , $id)->first();
+    public function index($slug = null){
+        if($slug){
+            $posts = Post::all()->where('slug' , $slug)->first();
             $posts->user;
             $posts->tags;
             $posts->comments; 
@@ -25,20 +25,30 @@ class PostController extends Controller
                 $post->comments; 
             }
         }
-
-        
         return response()->json($posts);
     }
 
-    public function indexUsers($name = null){
+    public function indexUsersName($name = null){
         if($name != null){
             $users = User::where('name', 'like', $name.'%')->get();
             foreach($users as $user){
                 $user['posts'] = $user->posts;
             }
         }
-
         return response()->json($users);
+    }
+
+    public function indexUser($slug = null){
+        if($slug != null){
+            $user = User::where('slug', $slug)->first();
+            $user->posts;
+            foreach($user->posts as $post){
+                $post->user;
+                $post->tags;
+                $post->comments; 
+            }
+        }
+        return response()->json($user);
     }
 
     public function newComment(Request $request)
@@ -46,6 +56,7 @@ class PostController extends Controller
         $post = new Comment();
         $post->content = $request['content'];
         $post->user_id = $request['user_id'];
+        $post->name = $request['name'];
         $post->post_id = $request['post_id'];
         $post->save(); 
         return response()->json([

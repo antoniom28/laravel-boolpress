@@ -40,7 +40,7 @@
                         v-for="(comment,index) in comments.length > 10 ? comments.slice(0, 10*page) : comments"
                         :key="index"
                     >
-                        <h3 class="user-comment"> {{mainUser.name}} </h3>
+                        <h3 class="user-comment"> {{comment.name}} </h3>
                         <span style="color:black">: {{comment.content}} </span>
                     </div>
                     <h5 class="load-comments" v-if="10*page < comments.length" @click="page++"> Read more comments </h5>
@@ -65,16 +65,7 @@ export default {
     name: "SinglePost",
     props:{
         mainUser: Object,
-    },
-    created: function(){
-        if(!this.$route.params.post){
-            this.load = true;
-            this.getPost();
-        }
-        else{
-            this.comments = this.$route.params.post.comments
-            this.post = this.$route.params.post
-        }
+        postFromUser: Object,
     },
     data(){
         return{
@@ -85,25 +76,45 @@ export default {
             comments : null,
         }
     },
+    created: function(){
+        console.log('ricevo',this.$route.params,this.postFromUser);
+        if(!this.postFromUser)
+            if(!this.$route.params.post){
+                this.load = true;
+                this.getPost();
+            }
+            else{
+                this.comments = this.$route.params.post.comments;
+                this.post = this.$route.params.post;
+                this.updateComments();
+            }
+        else{
+            this.post = this.postFromUser;
+            this.comments = this.postFromUser.comments;
+        }
+    },
     methods:{
         addComment(){
-            axios.post('../api/new-comment',{content: this.commentText, user_id: this.mainUser.id, post_id: this.post.id})
+            axios.post('../api/new-comment',{content: this.commentText, name:this.mainUser.name, user_id: this.mainUser.id, post_id: this.post.id})
             .then((response)=>{
                 this.commentText = "";
                 console.log(response.data);
-                this.updatePost();
+                this.updateComments();
             });
         },
-        updatePost(){
-            axios.get('../api/posts/'+this.post.id)
+        updateComments(){
+            if(!this.post)
+                return;
+            axios.get('../api/posts/p/'+this.post.slug)
             .then((response)=>{
-                console.log(response.data.comments);
+                console.log(response.data.comments,'update');
                 this.comments = response.data.comments;
+                this.$emit('updateComments');
             });
         },
         getPost(){
-            console.log('chiamo');
-            axios.get('../api/posts/1')
+            console.log('chiamo',this.$route.path);
+            axios.get('../api/posts'+this.$route.path)
             .then((response)=>{
                 console.log(response.data);
                 this.post = response.data;

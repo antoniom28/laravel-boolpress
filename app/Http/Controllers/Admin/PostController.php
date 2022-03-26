@@ -20,8 +20,8 @@ class PostController extends Controller
         "title" => "string|min:10",
         "content" => "required",
         "published" => "required",
-        "category_id" => "required",
         "tag" => "max : 100",
+        "image" => "required",
     ];
 
     protected function control_tag($tag_to_control){

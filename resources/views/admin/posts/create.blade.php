@@ -26,18 +26,18 @@
         @enderror
     </div>
 
-    <div class="form-group">
+    <div class="mb-0 form-group">
         <label for="image">Image</label>
         <input type="file" name="image" class="p-1 form-control @error('image') is-invalid @enderror ">
     </div>
     @error('image')
-    <div class="invalid-feedback">
+    <div class="mt-0 alert alert-danger">
         {{$message}}
     </div>
     @enderror
 
-    <div class="form-group">
-        <label for="published">Pubblicare alla creazione ? </label>
+    <div class="mt-4 mb-1 form-group">
+        <label for="published"> <u>Pubblicare alla creazione ?</u> </label>
         SI <input {{(old("published") == "yes") ? "checked" : ""}} value="yes" type="radio" name="published" id="published">
         NO <input {{(old("published") == "no") ? "checked" : ""}} value="no" type="radio" name="published" id="published">
         @error('published')

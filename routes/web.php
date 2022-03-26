@@ -13,20 +13,11 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    if(Auth::user())
-        return view('front');
-    else
-        return view('welcome');
-})->name('homepage');
-
-Route::get('/p/{slug}', function () {
-    if(Auth::user())
-        return view('front');
-    else
-        return view('welcome');
-})->name('test');
+Route::middleware('auth')->group(function () {
+    Route::get('/', function () { return view('front'); })->name('homepage');
+    Route::get('/u/{slug}', function () { return view('front'); })->name('searched-user');
+    Route::get('/p/{slug}', function () { return view('front'); })->name('single-page');
+});
 
 Auth::routes();
 

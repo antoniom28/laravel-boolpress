@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -22,6 +23,16 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
+    protected function create_slug($value , $id){
+        $slug = Str::slug($value);
+        $count = 1;
+        while(User::whereSlug($slug)->where('id' , '!=' , $id)->first()){
+            $slug = Str::slug($value)."-".$count;
+            $count++;
+        }
+        //Str::of($data["title"])->slug("-")
+        return $slug;
+    }
 
     use RegistersUsers;
 
@@ -69,9 +80,12 @@ class RegisterController extends Controller
             $path = Storage::put('uploads' , $data['avatar']);
         } else
             $path = NULL;
+
+            $slug = $this->create_slug($data["name"], null);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'slug' => $slug,
             'avatar' => $path,
             'password' => Hash::make($data['password']),
         ]);

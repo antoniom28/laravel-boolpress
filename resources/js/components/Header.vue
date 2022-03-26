@@ -17,11 +17,13 @@
                 v-for="(user,index) in usersSearched"
                 :key="index"
               >
+              <router-link class="searched-user" :to="{name : 'searched-user' , params:{slug:user.slug} }">
                 <div class="image">
                   <img v-if="user.avatar" :src="'../storage/'+user.avatar">
                   <div v-else class="image-404"></div>
                 </div>
                 <span>{{user.name}}</span>
+              </router-link>
               </li>
             </ul>
           </div>
@@ -76,6 +78,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+a.searched-user{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
 .image{
   margin: 0 15px;
   width: 30px;
@@ -151,11 +160,14 @@ input:focus-visible + .sub-search{
   padding: 20px 10px;
   position: fixed;
   height: 300px;
+  border-radius: 30px;
+  overflow: hidden;
   z-index: 9999;
   width: 300px;
   left: calc(50% - 150px);
   top: 60px;
   background-color: rgba(250,250,250);
+  border: 1px solid black;
 
   li{
     background-color: white;

@@ -42,7 +42,7 @@
                     v-for="(comment,index) in comments.length > 5 ? comments.slice(0, 5*page) : comments"
                     :key="index"
                 >
-                    <h3 class="user-comment"> {{mainUser.name}} </h3>
+                    <h3 class="user-comment"> {{comment.name}} </h3>
                     <span style="color:black">: {{comment.content}} </span>
                 </div>
                 <h5 class="load-comments" v-if="5*page < comments.length" @click="page++"> Read more comments </h5>
@@ -77,7 +77,8 @@ export default {
     },
     methods:{
         addComment(){
-            axios.post('api/new-comment',{content: this.commentText, user_id: this.mainUser.id, post_id: this.post.id})
+            console.log(this.mainUser.name);
+            axios.post('api/new-comment',{content: this.commentText, name:this.mainUser.name, user_id: this.mainUser.id, post_id: this.post.id})
             .then((response)=>{
                 this.commentText = "";
                 console.log(response.data);
@@ -85,10 +86,10 @@ export default {
             });
         },
         updatePost(){
-            axios.get('api/posts/'+this.post.id)
+            axios.get('api/posts/p/'+this.post.slug)
             .then((response)=>{
-                console.log(response.data[0].comments);
-                this.comments = response.data[0].comments;
+                //console.log(response.data[0].comments);
+                this.comments = response.data.comments;
             });
         },
     },
