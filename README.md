@@ -1,8 +1,4 @@
-
-
-https://user-images.githubusercontent.com/92157762/160010411-46866fff-38f1-405e-a892-ae1360ecb2a5.mp4
-
-
+Uploading 2022-03-27 17-13-45_Trim.mp4…
 
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
