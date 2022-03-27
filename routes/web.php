@@ -31,6 +31,10 @@ Route::middleware('auth')
         Route::resource('/tags' , 'TagController');
         Route::resource('/users' , 'UserController');
         Route::get("/user" , function (){
-            return response()->json(['name' => Auth::user()->name , 'id' => Auth::user()->id]);
+            return response()->json([
+                'name' => Auth::user()->name , 
+                'id' => Auth::user()->id ,
+                'avatar' => Auth::user()->avatar ,
+            ]);
         }); //prende utente attuale
     });

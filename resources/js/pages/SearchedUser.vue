@@ -2,7 +2,9 @@
   <div v-if="!load" class="profile-box">
       <div class="profile align-items-center">
           <div class="image">
-            <img :src="'../storage/'+user.avatar" alt="">
+            <div class="image-box">
+                <img :src="'../storage/'+user.avatar" alt="">
+            </div>
         </div>
         <div class="content-box">
             <div class="content">
@@ -43,13 +45,15 @@
           </div>
       </div>
 
-      <div @click="showPostBox(false)" v-if="getPostFromUser != null" class="opacity-box">
-         <div @click="showPostBox(true)" class="post-from-user">
-             <SinglePost @updateComments="getUser" :mainUser="mainUser" :postFromUser="getPostFromUser"/>
-         </div>
+      <div @click="postFromUser = null" v-if="postFromUser" class="opacity-box">
          <div class="exit">
              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
          </div>
+      </div>
+
+  
+      <div v-if="postFromUser" class="post-from-user">
+        <SinglePost @updateComments="getUser" :mainUser="mainUser" :postFromUser="getPostFromUser"/>
       </div>
   </div>
 </template>
@@ -64,7 +68,6 @@ export default {
             postFromUser: null,
             user : null,
             load : false,
-            PostBox : 0,
         }
     },
     props: {
@@ -83,17 +86,6 @@ export default {
         }
     },
     methods:{
-        showPostBox(can){
-            this.PostBox++;
-
-            if(this.PostBox == 1 && can == false){
-                this.postFromUser = null;
-                this.PostBox = 0;
-            }
-
-            if(this.PostBox >= 2)
-                this.PostBox = 0;
-        },
         showPost(post){
             this.postFromUser = null;
             setTimeout(() => {
@@ -116,11 +108,11 @@ export default {
 .opacity-box{
     position: fixed;
     top: 0;
-    bottom: 0;
-    z-index: 10000;
     left: 0;
-    right: 0;
-    background-color: #00000078;
+    height: 100%;
+    width: 100%;
+    z-index: 10000;
+    background-color: rgba(0, 0, 0, 0.5);
 
     .exit{
         position: absolute;
@@ -130,16 +122,16 @@ export default {
         cursor: pointer;
         top: 15px;
     }
+}
 
-    .post-from-user{
-        position: relative;
-        max-width: 900px;
-        width: 90%;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50% , -55%);
-        z-index: 10001;
-    }
+.post-from-user{
+    position: fixed;
+    max-width: 900px;
+    width: 90%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10001;
 }
 
 .profile{
@@ -154,14 +146,25 @@ export default {
         height: 100%;
         position: relative;
 
-        img{
+        .image-box{
             width: 150px;
+            height: 150px;
             border-radius: 50%;
             border: 1px solid black;
+            overflow: hidden;
+            background-color: red;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50% , -50%);
+
+            img{
+                width: 100%;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50% , -50%);
+            }
         }
     }
 }

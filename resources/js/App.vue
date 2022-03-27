@@ -1,6 +1,6 @@
 <template>
   <div class="main-container">
-      <Header />
+      <Header :mainUser="mainUser"/>
       <Main :mainUser="mainUser"/>
     <!--  <Footer /> -->
   </div>

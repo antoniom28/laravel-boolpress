@@ -25,3 +25,4 @@ Route::get("/posts/p/{slug}" , "Api\PostController@index"); //prende il post spe
 Route::get("/users/{name}" , "Api\PostController@indexUsersName"); //prende tutti gli utenti che iniziano con "name"
 Route::get("/user/{slug}" , "Api\PostController@indexUser"); //prende lo specifico utente
 Route::post("/new-comment" , "Api\PostController@newComment"); //salva i commenti
+Route::post("/new-post" , "Api\PostController@newPost"); //salva i commenti
