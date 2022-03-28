@@ -2080,9 +2080,16 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    controlInput: function controlInput() {
+      var temp = this.commentText;
+      temp = temp.replace(/\s+/g, '');
+      if (temp == null || temp == "" || temp == " ") return false;
+    },
     addComment: function addComment() {
       var _this = this;
 
+      var control = this.controlInput();
+      if (control == false) return;
       console.log(this.mainUser.name);
       axios.post('api/new-comment', {
         content: this.commentText,
@@ -2207,7 +2214,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       createPost: false,
       searchBox: null,
       inputText: "",
-      prevInput: '',
+      prevInput: null,
       usersSearched: []
     };
   },
@@ -2225,32 +2232,45 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.createPost = can;
     },
     controlInput: function controlInput() {
-      if (this.inputText != "" && this.inputText != this.prevInput) {
+      /*if(this.inputText != "" && this.inputText != this.prevInput){
         this.getUsers();
-      } else {
+      } else{
         this.usersSearched = [];
       }
-
-      this.prevInput = this.inputText;
+        this.prevInput = this.inputText;*/
+      console.log(this.inputText);
+      var temp = this.inputText;
+      temp = temp.replace(/\s+/g, '');
+      console.log('temp = ', temp);
+      if (temp == null || temp == "" || temp == " ") return;
+      console.log('controll il prev');
+      var control = this.inputText.replace(/\s+/g, '');
+      if (control == this.prevInput) return;
+      console.log('ho passato i controlli');
+      this.prevInput = this.inputText.replace(/\s+/g, '');
+      this.getUsers();
     },
     getUsers: function getUsers() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response;
+        var adaptText, response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
-                return _this.makeAxiosCall("../api/users/".concat(_this.inputText));
+                adaptText = _this.inputText.replace(/\s+/g, '');
+                adaptText = adaptText.toLowerCase();
+                console.log('mando', adaptText);
+                _context.next = 5;
+                return _this.makeAxiosCall("../api/users/".concat(adaptText));
 
-              case 2:
+              case 5:
                 response = _context.sent;
                 console.log(response.data);
                 _this.usersSearched = response.data;
 
-              case 5:
+              case 8:
               case "end":
                 return _context.stop();
             }
@@ -2744,9 +2764,16 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    controlInput: function controlInput() {
+      var temp = this.commentText;
+      temp = temp.replace(/\s+/g, '');
+      if (temp == null || temp == "" || temp == " ") return false;
+    },
     addComment: function addComment() {
       var _this = this;
 
+      var control = this.controlInput();
+      if (control == false) return;
       axios.post('../api/new-comment', {
         content: this.commentText,
         name: this.mainUser.name,
@@ -2798,7 +2825,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "img[data-v-05ce9554] {\n  width: 100%;\n}\n.user-comment[data-v-05ce9554] {\n  display: inline-block;\n  color: black;\n}\n.load-comments[data-v-05ce9554] {\n  cursor: pointer;\n  margin-left: 7px;\n}\n.post-box[data-v-05ce9554] {\n  overflow: hidden;\n  border-radius: 4px;\n  border: 1px solid #d4d4d4;\n  width: 600px;\n  margin: 30px auto;\n  background-color: white;\n}\n.post-box .header[data-v-05ce9554] {\n  height: 60px;\n  padding: 0 20px;\n}\n.post-box .header .image-404[data-v-05ce9554] {\n  width: 30px;\n  height: 30px;\n  border-radius: 50%;\n  background-color: red;\n}\n.post-box .header .profile-pic[data-v-05ce9554] {\n  width: 30px;\n  height: 30px;\n  border-radius: 50%;\n  position: relative;\n  margin-right: 15px;\n}\n.post-box .header .profile-pic img[data-v-05ce9554] {\n  border-radius: 50%;\n  position: absolute;\n  height: 100%;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n}\n.post-box .hashtag[data-v-05ce9554] {\n  margin: 0 2px;\n  text-decoration: none;\n}\n.post-box .footer[data-v-05ce9554] {\n  padding: 0 20px;\n  overflow: auto;\n  max-height: 300px;\n}\n.post-box .footer .content[data-v-05ce9554], .post-box .footer .comments[data-v-05ce9554] {\n  margin: 8px 0;\n}\n.post-box .footer .comments[data-v-05ce9554] {\n  line-height: 1.5;\n  color: grey;\n}\n.post-box .add-comment[data-v-05ce9554] {\n  border-top: 1px solid #d4d4d4;\n  height: 50px;\n}\n.post-box .add-comment .comment[data-v-05ce9554] {\n  width: 90%;\n}\n.post-box .add-comment .comment input[data-v-05ce9554] {\n  height: 25px;\n  font-size: 1.1em;\n  width: 90%;\n}\n.post-box .add-comment .publish[data-v-05ce9554] {\n  width: 10%;\n  color: skyblue;\n}\n.post-box .add-comment .publish[data-v-05ce9554]:hover {\n  cursor: pointer;\n  transform: scale(1.1);\n}\n.main .image-404[data-v-05ce9554] {\n  width: 100%;\n  height: 300px;\n  background-color: red;\n}", ""]);
+exports.push([module.i, "img[data-v-05ce9554] {\n  width: 100%;\n}\n.user-comment[data-v-05ce9554] {\n  display: inline-block;\n  color: black;\n}\n.load-comments[data-v-05ce9554] {\n  cursor: pointer;\n  margin-left: 7px;\n}\n.post-box[data-v-05ce9554] {\n  overflow: hidden;\n  border-radius: 4px;\n  border: 1px solid #d4d4d4;\n  width: 600px;\n  margin: 30px auto;\n  background-color: white;\n}\n.post-box .header[data-v-05ce9554] {\n  height: 60px;\n  padding: 0 20px;\n}\n.post-box .header .image-404[data-v-05ce9554] {\n  width: 30px;\n  height: 30px;\n  border-radius: 50%;\n  background-color: red;\n}\n.post-box .header .profile-pic[data-v-05ce9554] {\n  width: 30px;\n  height: 30px;\n  border-radius: 50%;\n  position: relative;\n  margin-right: 15px;\n}\n.post-box .header .profile-pic img[data-v-05ce9554] {\n  border-radius: 50%;\n  position: absolute;\n  height: 100%;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n}\n.post-box .hashtag[data-v-05ce9554] {\n  margin: 0 2px;\n  text-decoration: none;\n}\n.post-box .footer[data-v-05ce9554] {\n  padding: 0 20px;\n  overflow: auto;\n  max-height: 300px;\n}\n.post-box .footer .content[data-v-05ce9554], .post-box .footer .comments[data-v-05ce9554] {\n  margin: 8px 0;\n}\n.post-box .footer .comments[data-v-05ce9554] {\n  overflow-wrap: anywhere;\n  line-height: 1.5;\n  color: grey;\n}\n.post-box .add-comment[data-v-05ce9554] {\n  border-top: 1px solid #d4d4d4;\n  height: 50px;\n}\n.post-box .add-comment .comment[data-v-05ce9554] {\n  width: 90%;\n}\n.post-box .add-comment .comment input[data-v-05ce9554] {\n  height: 25px;\n  font-size: 1.1em;\n  width: 90%;\n}\n.post-box .add-comment .publish[data-v-05ce9554] {\n  width: 10%;\n  color: skyblue;\n}\n.post-box .add-comment .publish[data-v-05ce9554]:hover {\n  cursor: pointer;\n  transform: scale(1.1);\n}\n.main .image-404[data-v-05ce9554] {\n  width: 100%;\n  height: 300px;\n  background-color: red;\n}", ""]);
 
 // exports
 
@@ -2874,7 +2901,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "img[data-v-67cb3b51] {\n  width: 100%;\n}\n.user-comment[data-v-67cb3b51] {\n  display: inline-block;\n  color: black;\n}\n.load-comments[data-v-67cb3b51] {\n  cursor: pointer;\n  margin-left: 7px;\n}\n.main-content[data-v-67cb3b51] {\n  height: 100%;\n  border-left: 1px solid #d4d4d4;\n}\n.post-box[data-v-67cb3b51] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  overflow: hidden;\n  border-radius: 4px;\n  border: 1px solid #d4d4d4;\n  max-width: 900px;\n  min-height: 500px;\n  height: 80vh;\n  width: 90%;\n  margin: 30px auto;\n  background-color: white;\n}\n.post-box .header[data-v-67cb3b51] {\n  height: 60px;\n  padding: 0 20px;\n  border-bottom: 1px solid #d4d4d4;\n}\n.post-box .header .image-404[data-v-67cb3b51] {\n  width: 30px;\n  height: 30px;\n  border-radius: 50%;\n  background-color: red;\n}\n.post-box .header .profile-pic[data-v-67cb3b51] {\n  width: 30px;\n  height: 30px;\n  border-radius: 50%;\n  position: relative;\n  margin-right: 15px;\n}\n.post-box .header .profile-pic img[data-v-67cb3b51] {\n  border-radius: 50%;\n  position: absolute;\n  height: 100%;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n}\n.post-box .hashtag[data-v-67cb3b51] {\n  margin: 0 2px;\n  text-decoration: none;\n}\n.post-box .footer[data-v-67cb3b51] {\n  padding: 0 20px;\n  height: calc(100% - 110px);\n  overflow: auto;\n}\n.post-box .footer .content[data-v-67cb3b51], .post-box .footer .comments[data-v-67cb3b51] {\n  margin: 8px 0;\n}\n.post-box .footer .comments[data-v-67cb3b51] {\n  line-height: 1.5;\n  color: grey;\n}\n.post-box .add-comment[data-v-67cb3b51] {\n  border-top: 1px solid #d4d4d4;\n  justify-content: space-between;\n  height: 50px;\n  padding: 0 10px;\n}\n.post-box .add-comment .comment[data-v-67cb3b51] {\n  width: 90%;\n}\n.post-box .add-comment .comment input[data-v-67cb3b51] {\n  height: 25px;\n  font-size: 1.1em;\n  width: calc(90% - 20px);\n}\n.post-box .add-comment .publish[data-v-67cb3b51] {\n  color: skyblue;\n}\n.post-box .add-comment .publish[data-v-67cb3b51]:hover {\n  cursor: pointer;\n  transform: scale(1.1);\n}\n.main[data-v-67cb3b51] {\n  width: 60%;\n  background-color: #d4d4d4;\n}\n.main .image-404[data-v-67cb3b51] {\n  width: 100%;\n  height: 300px;\n  background-color: red;\n}", ""]);
+exports.push([module.i, "img[data-v-67cb3b51] {\n  width: 100%;\n}\n.user-comment[data-v-67cb3b51] {\n  display: inline-block;\n  color: black;\n}\n.load-comments[data-v-67cb3b51] {\n  cursor: pointer;\n  margin-left: 7px;\n}\n.main-content[data-v-67cb3b51] {\n  max-width: 320px;\n  height: 100%;\n  border-left: 1px solid #d4d4d4;\n}\n.post-box[data-v-67cb3b51] {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  overflow: hidden;\n  border-radius: 4px;\n  border: 1px solid #d4d4d4;\n  max-width: 900px;\n  min-height: 500px;\n  height: 80vh;\n  width: 90%;\n  margin: 30px auto;\n  background-color: white;\n}\n.post-box .header[data-v-67cb3b51] {\n  height: 60px;\n  padding: 0 20px;\n  border-bottom: 1px solid #d4d4d4;\n}\n.post-box .header .image-404[data-v-67cb3b51] {\n  width: 30px;\n  height: 30px;\n  border-radius: 50%;\n  background-color: red;\n}\n.post-box .header .profile-pic[data-v-67cb3b51] {\n  width: 30px;\n  height: 30px;\n  border-radius: 50%;\n  position: relative;\n  margin-right: 15px;\n}\n.post-box .header .profile-pic img[data-v-67cb3b51] {\n  border-radius: 50%;\n  position: absolute;\n  height: 100%;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n}\n.post-box .hashtag[data-v-67cb3b51] {\n  margin: 0 2px;\n  text-decoration: none;\n}\n.post-box .footer[data-v-67cb3b51] {\n  padding: 0 20px;\n  height: calc(100% - 110px);\n  overflow: auto;\n}\n.post-box .footer .content[data-v-67cb3b51], .post-box .footer .comments[data-v-67cb3b51] {\n  margin: 8px 0;\n}\n.post-box .footer .comments[data-v-67cb3b51] {\n  overflow-wrap: anywhere;\n  line-height: 1.5;\n  color: grey;\n}\n.post-box .add-comment[data-v-67cb3b51] {\n  border-top: 1px solid #d4d4d4;\n  justify-content: space-between;\n  height: 50px;\n  padding: 0 10px;\n}\n.post-box .add-comment .comment[data-v-67cb3b51] {\n  width: 90%;\n}\n.post-box .add-comment .comment input[data-v-67cb3b51] {\n  height: 25px;\n  font-size: 1.1em;\n  width: calc(90% - 20px);\n}\n.post-box .add-comment .publish[data-v-67cb3b51] {\n  color: skyblue;\n}\n.post-box .add-comment .publish[data-v-67cb3b51]:hover {\n  cursor: pointer;\n  transform: scale(1.1);\n}\n.main[data-v-67cb3b51] {\n  width: 60%;\n  background-color: #d4d4d4;\n}\n.main .image-404[data-v-67cb3b51] {\n  width: 100%;\n  height: 300px;\n  background-color: red;\n}", ""]);
 
 // exports
 

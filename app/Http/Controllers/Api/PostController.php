@@ -69,7 +69,9 @@ class PostController extends Controller
 
     public function indexUsersName($name = null){
         if($name != null){
-            $users = User::where('name', 'like', $name.'%')->get();
+            $new_str = preg_replace("/\s+/", "*", $name);
+            $name = $new_str;
+            $users = User::whereRaw("REPLACE(`name`, ' ' ,'') LIKE ?", $name.'%')->get();
             foreach($users as $user){
                 $user['posts'] = $user->posts;
             }

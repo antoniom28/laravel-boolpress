@@ -76,7 +76,16 @@ export default {
         }
     },
     methods:{
+        controlInput(){
+            let temp = this.commentText;
+            temp = temp.replace(/\s+/g, '');
+            if(temp == null || temp == "" || temp == " ")
+                return false;
+        },
         addComment(){
+            let control = this.controlInput();
+            if(control == false)
+                return;
             console.log(this.mainUser.name);
             axios.post('api/new-comment',{content: this.commentText, name:this.mainUser.name, user_id: this.mainUser.id, post_id: this.post.id})
             .then((response)=>{
@@ -162,6 +171,7 @@ img{
         }
 
         .comments{
+            overflow-wrap: anywhere;
             line-height: 1.5;
             color: grey;
         }

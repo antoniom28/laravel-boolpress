@@ -58,7 +58,7 @@ export default {
         createPost : false,
         searchBox : null,
         inputText: "",
-        prevInput: '',
+        prevInput: null,
         usersSearched : [],
       }
     },
@@ -76,17 +76,36 @@ export default {
         this.createPost = can;
       },
       controlInput(){
-        if(this.inputText != "" && this.inputText != this.prevInput){
-          
+        /*if(this.inputText != "" && this.inputText != this.prevInput){
           this.getUsers();
         } else{
           this.usersSearched = [];
         }
 
-        this.prevInput = this.inputText;
+        this.prevInput = this.inputText;*/
+    
+      console.log(this.inputText);
+      let temp = this.inputText;
+      temp = temp.replace(/\s+/g, '');
+      console.log('temp = ', temp);
+      if(temp == null || temp == "" || temp == " ")
+          return;
+      
+      console.log('controll il prev');
+      let control = this.inputText.replace(/\s+/g, '');
+      if(control == this.prevInput)
+        return;
+
+      console.log('ho passato i controlli');
+      this.prevInput = this.inputText.replace(/\s+/g, '');
+      this.getUsers();
+
       },
       async getUsers() {
-      let response = await this.makeAxiosCall(`../api/users/${this.inputText}`);
+      let adaptText = this.inputText.replace(/\s+/g, '');
+      adaptText = adaptText.toLowerCase();
+      console.log('mando',adaptText);
+      let response = await this.makeAxiosCall(`../api/users/${adaptText}`);
       console.log(response.data);
       this.usersSearched = response.data;
     },
