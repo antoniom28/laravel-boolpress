@@ -4,7 +4,7 @@
 
       <div class="main-menu">
         <div class="menu-left">
-          <h1><router-link class="title" :to="{name : 'home'}">Boolgram</router-link></h1>
+          <h1><router-link class="title" :to="{name : 'home'}">Isntagram</router-link></h1>
         </div>
 
         <div class="menu-right">
@@ -145,12 +145,16 @@ a.searched-user{
 .image{
   margin: 0 15px;
   width: 30px;
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
   height: 30px;
   border-radius: 50%;
 }
 img{
-  height: 100%;
-  width: 100%;
+  flex-shrink: 0;
+  min-height: 100%;
+  min-width: 100%;
   border-radius: 50%;
 }
 

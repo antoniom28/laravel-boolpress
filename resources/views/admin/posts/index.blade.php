@@ -53,10 +53,6 @@
                     <button type="submit" class="btn btn-primary">Filtra</button>
                 </form>
             </div>
-        @else
-            <h1>
-                <a class="d-inline-block" href="{{route("homepage")}}">Torna ai post</a>
-            </h1>
         @endif
         
     

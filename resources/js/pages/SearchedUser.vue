@@ -152,6 +152,8 @@ export default {
             border-radius: 50%;
             border: 1px solid black;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
             background-color: red;
             position: absolute;
             top: 50%;
@@ -159,11 +161,9 @@ export default {
             transform: translate(-50% , -50%);
 
             img{
-                height: 100%;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50% , -50%);
+                flex-shrink: 0;
+                min-width: 100%;
+                min-height: 100%
             }
         }
     }

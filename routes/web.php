@@ -13,12 +13,6 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::middleware('auth')->group(function () {
-    Route::get('/', function () { return view('front'); })->name('homepage');
-    Route::get('/u/{slug}', function () { return view('front'); })->name('searched-user');
-    Route::get('/p/{slug}', function () { return view('front'); })->name('single-page');
-});
-
 Auth::routes();
 
 Route::middleware('auth')
@@ -37,4 +31,11 @@ Route::middleware('auth')
                 'avatar' => Auth::user()->avatar ,
             ]);
         }); //prende utente attuale
+    });
+
+    Route::middleware('auth')->group(function () {
+        /*Route::get('/', function () { return view('front'); })->name('homepage');
+        Route::get('/u/{slug}', function () { return view('front'); })->name('searched-user');
+        Route::get('/p/{slug}', function () { return view('front'); })->name('single-page');*/
+        Route::get('{any?}', function () { return view('front'); })->where("any",".*");
     });
