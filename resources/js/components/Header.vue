@@ -75,31 +75,22 @@ export default {
       createPostBox(can){
         this.createPost = can;
       },
-      controlInput(){
-        /*if(this.inputText != "" && this.inputText != this.prevInput){
-          this.getUsers();
-        } else{
-          this.usersSearched = [];
-        }
-
-        this.prevInput = this.inputText;*/
-    
-      console.log(this.inputText);
-      let temp = this.inputText;
-      temp = temp.replace(/\s+/g, '');
-      console.log('temp = ', temp);
-      if(temp == null || temp == "" || temp == " ")
+      controlInput(){    
+        console.log(this.inputText);
+        let temp = this.inputText;
+        temp = temp.replace(/\s+/g, '');
+        console.log('temp = ', temp);
+        if(temp == null || temp == "" || temp == " ")
+            return;
+        
+        console.log('controll il prev');
+        let control = this.inputText.replace(/\s+/g, '');
+        if(control == this.prevInput)
           return;
-      
-      console.log('controll il prev');
-      let control = this.inputText.replace(/\s+/g, '');
-      if(control == this.prevInput)
-        return;
 
-      console.log('ho passato i controlli');
-      this.prevInput = this.inputText.replace(/\s+/g, '');
-      this.getUsers();
-
+        console.log('ho passato i controlli');
+        this.prevInput = this.inputText.replace(/\s+/g, '');
+        this.getUsers();
       },
       async getUsers() {
       let adaptText = this.inputText.replace(/\s+/g, '');

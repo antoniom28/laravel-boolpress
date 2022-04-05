@@ -23,6 +23,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get("/posts" , "Api\PostController@index"); //prende tutti i dati relativi ai post
 Route::get("/posts/p/{slug}" , "Api\PostController@index"); //prende il post specifico
 Route::get("/users/{name}" , "Api\PostController@indexUsersName"); //prende tutti gli utenti che iniziano con "name"
-Route::get("/user/{slug}" , "Api\PostController@indexUser"); //prende lo specifico utente
+Route::get("/user/{id}" , "Api\PostController@indexUser"); //prende lo specifico utente
+Route::get("/tags/{tagname}" , "Api\PostController@indexTag"); //prende lo specifico tag
+
 Route::post("/new-comment" , "Api\PostController@newComment"); //salva i commenti
-Route::post("/new-post" , "Api\PostController@newPost"); //salva i commenti
+Route::post("/new-like" , "Api\PostController@newLike"); //salva i likes
+Route::post("/new-post" , "Api\PostController@newPost"); //crea il nuovo post

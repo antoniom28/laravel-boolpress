@@ -154,7 +154,6 @@ export default {
             overflow: hidden;
             display: flex;
             justify-content: center;
-            background-color: red;
             position: absolute;
             top: 50%;
             left: 50%;
@@ -185,19 +184,18 @@ export default {
             position: relative;
             overflow: hidden;
             margin-left: 2.5%;
+            display: flex;
+            justify-content: center;
             width: 30%;
             height: 0;
             padding-bottom: 30%;
-            background-color: red;
             cursor: pointer;
 
             img{
-                width: 360px;
-                //width: 100%;
+                min-width: 100%;
+                height: 100%;
+                flex-shrink: 0;
                 position: absolute;
-                left: 50%;
-                top: 50%;
-                transform: translate(-50% , -50%);
             }
         }
     }

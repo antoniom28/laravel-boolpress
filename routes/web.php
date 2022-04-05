@@ -29,6 +29,7 @@ Route::middleware('auth')
                 'name' => Auth::user()->name , 
                 'id' => Auth::user()->id ,
                 'avatar' => Auth::user()->avatar ,
+                'slug' => Auth::user()->slug,
             ]);
         }); //prende utente attuale
     });

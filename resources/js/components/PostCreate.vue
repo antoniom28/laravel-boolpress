@@ -1,5 +1,4 @@
 <template>
-  <div class="container">
      <!-- <div class="opacity-box"></div> -->
       <div class="create-box">
           <div v-if="!successfullyCreated" class="title align-items-center justify-center">
@@ -63,7 +62,6 @@
             </div>
           </div>
       </div>
-  </div>
 </template>
 
 <script>
@@ -128,7 +126,7 @@ export default {
             this.formData.append("user_id", this.mainUser.id);
             this.formData.append("tag", this.hashtag);
 
-        axios.post('api/new-post', this.formData , {  
+        axios.post('../api/new-post', this.formData , {  
             headers: {
                 "Content-Type": "multipart/form-data",
             },

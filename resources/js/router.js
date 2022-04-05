@@ -6,6 +6,7 @@ import Vue from "vue";
 		import Home from "./pages/Home";
 		import SinglePost from "./pages/SinglePost";
 		import SearchedUser from "./pages/SearchedUser";
+		import SearchTag from "./pages/SearchTag";
 		import NotFound from "./pages/NotFound";
 
 		const router = new VueRouter({
@@ -25,6 +26,11 @@ import Vue from "vue";
 		            path: "/p/:slug",
 		            name: "single-post",
 		            component: SinglePost
+		        },
+				{
+		            path: "/tags/:tagname",
+		            name: "search-tag",
+		            component: SearchTag
 		        },
 				{
 		            path: "*",

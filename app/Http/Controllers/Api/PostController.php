@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Post;
 use App\User;
 use App\Tag;
+use App\Like;
 use App\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -55,13 +56,15 @@ class PostController extends Controller
             $posts->user;
             $posts->tags;
             $posts->comments; 
+            $posts->likes; 
         }
         else{
             $posts = Post::all();
             foreach($posts as $post){
                 $post->user;
                 $post->tags;
-                $post->comments; 
+                $post->comments;  
+                $post->likes; 
             }
         }
         return response()->json($posts);
@@ -86,10 +89,30 @@ class PostController extends Controller
             foreach($user->posts as $post){
                 $post->user;
                 $post->tags;
-                $post->comments; 
+                $post->comments;  
+                $post->likes; 
             }
         }
         return response()->json($user);
+    }
+
+    public function indexTag($tagname = null){
+        
+        $tag = Tag::where('name',$tagname)->first();
+        
+        if(!$tag)
+            return response()->json(null);
+
+        $posts = $tag->posts;
+
+        foreach($posts as $post){
+            $post->user;
+            $post->tags;
+            $post->comments;  
+            $post->likes; 
+        }
+
+        return response()->json($posts);
     }
 
     public function newComment(Request $request)
@@ -104,11 +127,6 @@ class PostController extends Controller
             'message' => 'New Comment Added'
         ]);
     }
-
-    protected $validation = [
-        "title" => "required",
-        "published" => "required",
-    ];
 
     public function newPost(Request $request)
     {
@@ -131,6 +149,28 @@ class PostController extends Controller
         $post->tags()->sync($tag_to_pass);
         return response()->json([
             'message' => 'New Post Created'
+        ]);
+    }
+
+    public function newLike(Request $request)
+    {
+        $isnew = Like::where('user_id' , $request['user_id'])->where('post_id' , $request['post_id'])->first();
+        if($isnew != null){
+            $isnew->delete();
+            return response()->json([
+                'added' => false
+            ]);
+        }
+
+        $like = new Like();
+        $like->user_id = $request['user_id'];
+        $like->post_id = $request['post_id'];
+        $like->username = $request['username'];
+        $like->userslug = $request['userslug'];
+        $like->avatar = $request['avatar'];
+        $like->save(); 
+        return response()->json([
+            'added' => true
         ]);
     }
 }

@@ -10,30 +10,32 @@
         <div class="main-content">
             <div class="header align-items-center justify-between">
                 <div class="left align-items-center">
-                <div class="profile-pic">
-                    <img v-if="post.user && post.user.avatar" :src="'../storage/'+post.user.avatar">
-                    <div v-else class="image-404"></div>
-                </div>
-                <div v-if="post.user" class="profile-name">
-                    {{post.user.name}}
-                </div>
-                <div v-else class="profile-name">
-                    utente generato dal seed
-                </div>
+                    <router-link class="align-items-center searched-user" :to="{name : 'searched-user' , params:{slug:post.user.slug} }">
+                        <div class="profile-pic">
+                            <img v-if="post.user && post.user.avatar" :src="'../storage/'+post.user.avatar">
+                            <div v-else class="image-404"></div>
+                        </div>
+                        <div v-if="post.user" class="profile-name">
+                            {{post.user.name}}
+                        </div>
+                        <div v-else class="profile-name">
+                            utente generato dal seed
+                        </div>
+                    </router-link>
                 </div>
             </div>
 
             <div class="footer">
                 <div class="content">
                     {{post.content}}
-                    <a 
+                    <router-link 
                         v-for="(tag,index) in post.tags"
                         :key="index"
-                        :href="'/admin/tags/'+tag.id"
-                        class="hashtag"
+                        class="hashtag" 
+                        :to="{name : 'search-tag' , params:{tagname:tag.name , tag:tag} }"
                     >
                         #{{tag.name}}
-                    </a>
+                    </router-link>
                 </div>
                 <div class="comments">
                     <div
@@ -173,6 +175,10 @@ img{
         height: 60px;
         padding: 0 20px;
         border-bottom: 1px solid rgb(212, 212, 212);
+
+        a{
+            text-decoration: none;
+        }
 
         .image-404{
             width: 30px;
